@@ -2,9 +2,15 @@ import express from 'express';
 
 const port = process.env.PORT || 8000;
 const app = express();
+
 app.get('/', (request, res) => {
 	res.send('Hello World!');
 });
+
+app.post('/', (request, res) => {
+	res.send('Got a POST request');
+});
+
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });

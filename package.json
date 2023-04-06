@@ -4,5 +4,10 @@
   "main": "index.js",
   "repository": "https://github.com/nccu-ben/NTU_111_Spring_PADNS.git",
   "author": "BEN_HO <pohan.ho@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "cd backend && yarn start",
+    "build": "cd frontend && yarn build",
+    "install:all": "cd frontend && yarn install --production=false && cd ../backend && yarn"
+  }
 }

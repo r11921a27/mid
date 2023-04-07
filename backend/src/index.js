@@ -1,15 +1,10 @@
 import express from 'express';
+import rootRouter from './routes/index.js';
 
 const port = process.env.PORT || 8000;
 const app = express();
 
-app.get('/', (request, res) => {
-	res.send('Hello World!');
-});
-
-app.post('/', (request, res) => {
-	res.send('Got a POST request');
-});
+app.use(rootRouter);
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);

@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id              Int      @id @default(autoincrement())
-  name            String   @db.VarChar(20)
+  name            String   @db.VarChar(20) @unique
   hashed_password String
   image_url       String?
   messages        Messages[]  @relation("UserMessages")

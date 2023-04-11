@@ -5,7 +5,7 @@
   "author": "doraeric <benson.doraemon@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cd backend && yarn start",
+    "start": "cd backend && npx prisma generate && yarn start",
     "build": "cd frontend && yarn build",
     "install:all": "cd frontend && yarn install --production=false && cd ../backend && yarn"
   },

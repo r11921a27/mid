@@ -11,6 +11,17 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  name    String
+  id              Int      @id @default(autoincrement())
+  name            String   @db.VarChar(20)
+  hashed_password String
+  image_url       String?
+  messages        Messages[]  @relation("UserMessages")
 }
+
+model Messages {
+  id              Int      @id @default(autoincrement())
+  user_id         Int
+  messages        String   @db.VarChar(150) // Limit the length of messages to 150
+  user           User   @relation(name: "UserMessages", fields: [user_id], references: [id])
+}
+

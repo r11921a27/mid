@@ -1,9 +1,8 @@
 {
-  "name": "NTU_111_Spring_PADNS",
+  "name": "midterm-website",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/nccu-ben/NTU_111_Spring_PADNS.git",
-  "author": "BEN_HO <pohan.ho@gmail.com>",
+  "author": "doraeric <benson.doraemon@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "cd backend && yarn start",

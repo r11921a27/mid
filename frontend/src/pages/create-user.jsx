@@ -1,5 +1,5 @@
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import services from "../services";
 
 // you should design your register page and api
@@ -7,35 +7,25 @@ function CreateUserPage() {
   const [formData, setFormData] = useState({ username: "" });
   const [message, setMessage] = useState("");
 
-  /** @type {React.ChangeEventHandler<HTMLInputElement>} */
-  const handleTextInputChange = ({ target: { name, value } }) => {
-    // const { name, value } = event.target
-    // obj = { ...prev }; obj[name] = value
+const handleTextInputChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  /** @type {React.FormEventHandler<HTMLFormElement>} */
   const handleFormSubmit = (event) => {
-    services.user.createOne({ name: formData.username }).then((data) => {
-      setMessage(JSON.stringify(data, null, 2));
-    });
-    setFormData({ username: "" });
+    services.user
+      .createOne({ name: formData.username, password: formData.password })
+      .then((data) => {
+        setMessage(JSON.stringify(data, null, 2));
+      });
+    setFormData({ username: "", password: "" });
     event.preventDefault();
   };
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -61,6 +51,18 @@ function CreateUserPage() {
                   className="relative block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Username"
                   value={formData.username}
+                  onChange={handleTextInputChange}
+                />
+                <label htmlFor="password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  className="relative block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="Password"
+                  value={formData.password}
                   onChange={handleTextInputChange}
                 />
               </div>

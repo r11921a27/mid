@@ -13,8 +13,8 @@ const frontendDir = path.join(__dirname, '../../frontend/dist');
 const port = process.env.PORT || 8000;
 
 const app = express();
-app.use(express.json());
 app.use(express.static(frontendDir));
+app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
 	app.set('trust proxy', 1);

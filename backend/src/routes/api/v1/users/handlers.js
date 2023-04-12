@@ -2,8 +2,18 @@ import bcrypt from 'bcrypt';
 import {prisma} from '../../../../adapters.js';
 
 export async function getAllUsers(request, res) {
-	const allUsers = await prisma.user.findMany();
-	return res.json(allUsers);
+	try {
+		const allUsers = await prisma.user.findMany({
+			select: {
+				name: true,
+			},
+		});
+
+		return res.json(allUsers);
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({error: 'Error fetching users'});
+	}
 }
 
 /**
@@ -21,14 +31,21 @@ export async function createOneUser(request, res) {
 		const salt = await bcrypt.genSalt(10);
  		const hashedPassword = await bcrypt.hash(password, salt);
 
-		const user = await prisma.user.create({
+		const existingUser = await prisma.user.findUnique({
+			where: {name},
+		});
+
+		if (existingUser) {
+			return res.status(200).json({Message: 'User exist.'});
+		}
+
+		const newUser = await prisma.user.create({
 			data: {
-				name,
+    				name,
 				hashed_password: hashedPassword,
 			},
 		});
-
-		return res.status(201).json(user);
+		return res.status(201).json(newUser.name);
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({error: 'Error creating user'});
@@ -67,7 +84,7 @@ export async function deleteUser(request, res) {
 	const user = await prisma.user.findUnique({where: {id}});
 
 	if (user === null) {
-		return res.status(404).json({error: 'User not found'});
+		 return res.status(404).json({error: 'User not found'});
 	}
 
 	await prisma.user.delete({where: {id}});

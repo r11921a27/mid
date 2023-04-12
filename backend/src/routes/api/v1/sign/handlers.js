@@ -4,6 +4,10 @@ import {prisma} from '../../../../adapters.js';
 export async function signIn(request, res) {
 	const {name, password} = request.body;
 
+	if (!name || !password) {
+		return res.status(400).json({message: 'Missing required parameter: name'});
+	}
+
 	const user = await prisma.user.findUnique({
 		where: {name},
 	});
@@ -18,12 +22,13 @@ export async function signIn(request, res) {
 		return res.status(401).json({error: 'Invalid password'});
 	}
 
-	// Request.session.userId = user.id;
+	request.session.userId = user.id;
 
-	return res.status(200).json({success: true});
+	return res.status(200).json(user.name);
 }
 
 export async function signOut(request, res) {
-	req.session.destroy();
+	// Request.session.destroy();
+	request.session.userId = null;
 	return res.status(200).json({success: true});
 }

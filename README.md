@@ -1,4 +1,4 @@
-# NTU_111_Spring_PADNS
+## NTU_111_Spring_PADNS
 
 # Instructions for Midterm Personal Website Attack and Defense
 
@@ -7,11 +7,11 @@ For the midterm exam, you will be conducting a personal website attack and defen
 
 ## Personal Website Design Requirements
 1. Website page design should include:
-   - Personal profile picture
-   - Introduction of the website owner
+   - []Personal profile picture
+   - [x]Introduction of the website owner
 2. Website features should include:
-   - Registration and login functionality for visitors (account, password, and visitor's profile picture will be stored in the database)
-   - Ability for visitors to upload images as profile pictures (only jpg and png formats)
-   - Website message board function (registered visitors can leave messages, and the left side will include the avatar of the message sender. Message senders can delete their own messages), as shown in the figure below:
+   - []Registration and login functionality for visitors (account, password, and visitor's profile picture will be stored in the database)
+   - []Ability for visitors to upload images as profile pictures (only jpg and png formats)
+   - []Website message board function (registered visitors can leave messages, and the left side will include the avatar of the message sender. Message senders can delete their own messages), as shown in the figure below:
 
 

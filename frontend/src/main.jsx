@@ -7,6 +7,7 @@ import "./index.css";
 import UserPage from "./pages/users";
 import CreateUserPage from "./pages/create-user";
 import ErrorPage from "./pages/error-page";
+import ProfilePage from "./pages/profile";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/create-user",
         element: <CreateUserPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
     ],
   },

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import services from "../services";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useHistory } from "react-router-dom";
 
 function UserPage() {
   const [formData, setFormData] = useState({ username: "" });
@@ -18,6 +19,8 @@ function UserPage() {
       .signInAccount({ name: formData.username, password: formData.password })
       .then((data) => {
         setMessage(JSON.stringify(data, null, 2));
+        setUser(data);
+        history.push("/profile");
       });
     setFormData({ username: "", password: "" });
     event.preventDefault();

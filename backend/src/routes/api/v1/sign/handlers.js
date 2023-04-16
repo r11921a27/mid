@@ -4,8 +4,12 @@ import {prisma} from '../../../../adapters.js';
 export async function signIn(request, res) {
 	const {name, password} = request.body;
 
-	if (!name || !password) {
+	if (!name) {
 		return res.status(400).json({message: 'Missing required parameter: name'});
+	}
+
+	if (!password) {
+		return res.status(400).json({message: 'Missing required parameter: password'});
 	}
 
 	const user = await prisma.user.findUnique({

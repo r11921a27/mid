@@ -13,4 +13,9 @@ export const user = {
 		const {data} = await api.post('/sign/in', {name, password});
 		return data;
 	},
+	// 將image_url存入資料庫
+	async updateImage({name, image_url}) {
+		const {data} = await api.put('/users', {name, image_url});
+		return data;
+	},
 };

@@ -16,6 +16,29 @@ export async function getAllUsers(request, res) {
 	}
 }
 
+// Update user's image_url to db
+export async function updateUser(request, res) {
+	const {name, image_url} = request.body;
+
+	try {
+	    const user = await prisma.user.findUnique({where: {name}});
+		// If user exist, update image_url
+		const updatedUser = await prisma.user.update({
+			where: {name: user.name},
+			data: {image_url},
+		});
+		// If user does not exis return error
+		if (user === null) {
+			return res.status(404).json({error: 'User not found'});
+		}
+
+		return res.status(200).json(updatedUser);
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({error: 'Error fetching users'});
+	}
+}
+
 /**
  * @param {import('express').Request} req
  * @param {import('express').Response} res

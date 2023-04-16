@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import services from "../services";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 function UserPage() {
   const [formData, setFormData] = useState({ username: "" });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate()
+  const params = new URLSearchParams();
 
   const handleTextInputChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({
@@ -19,10 +22,10 @@ function UserPage() {
       .signInAccount({ name: formData.username, password: formData.password })
       .then((data) => {
         setMessage(JSON.stringify(data, null, 2));
-        setUser(data);
-        history.push("/profile");
+        params.append('name', formData.username);
+        params.append('password', formData.password);
+        navigate(`/profile?${params.toString()}`);
       });
-    setFormData({ username: "", password: "" });
     event.preventDefault();
   };
 

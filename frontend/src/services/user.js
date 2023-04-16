@@ -18,4 +18,17 @@ export const user = {
 		const {data} = await api.put('/users', {name, image_url});
 		return data;
 	},
+	async getAllMessages() {
+		const {data} = await api.get('/message');
+		return data;
+	},
+	async postMessage({name, password, message}) {
+		const {data} = await api.post('/message', {name, password, message});
+		return data;
+	},
+	async deleteMessage({name, password, id}) {
+		const {data} = await api.post('/message/delete', {name, password, id});
+		return data;
+	},
+
 };

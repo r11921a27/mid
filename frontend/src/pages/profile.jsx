@@ -52,7 +52,7 @@ function ProfilePage() {
 
     axios({
       method: "POST",
-      url: "https://api.imgur.com/3/imagei/",
+      url: "https://api.imgur.com/3/image/",
       data: formData,
       headers: {
       Authorization: "Client-ID 3e377c4338b3db6",

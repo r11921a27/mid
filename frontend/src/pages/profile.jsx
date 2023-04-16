@@ -1,33 +1,30 @@
 import { useEffect, useState } from "react";
 import services from "../services";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useLocation } from 'react-router-dom';
+
+const cookies = document.cookie.split(";").reduce((acc, curr) => {
+  const [key, value] = curr.trim().split("=");
+  acc[key] = value;
+  return acc;
+}, {});
+
 
 function ProfilePage() {
   const [formData, setFormData] = useState({ username: "" });
   const [message, setMessage] = useState("");
   const [userInfo, setUserInfo] = useState(null);
+  const username = cookies.username;
+  const getPassword = cookies.userpassword;
 
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const getName = params.get('name');
-  const getPassword = params.get('password');
-
-  useEffect(() => {
-    if (!getName || !getPassword) {
-        services.user
-        .signInAccount( {name: formData.username, password: formData.password} )
-        .then((data) => {
+useEffect(() => {
+  const isLoggedIn = cookies.isLoggedIn;
+  if (isLoggedIn && username) {
+    services.user
+      .signInAccount({ name: username, password: getPassword })
+      .then((data) => {
         setUserInfo(data);
-        });
-    }else{
-        services.user
-        .signInAccount( {name: getName, password: getPassword} )
-        .then((data) => {
-        setUserInfo(data);
-        });
-    }
-  }, []);
+      });
+  } }, []);
 
   const handleTextInputChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({
@@ -38,10 +35,10 @@ function ProfilePage() {
 
   const handleFormSubmit = (event) => {
     services.user
-      .updateImage({ name: formData.username, image_url: formData.image_url })
+      .updateImage({ name: username, image_url: formData.image_url })
       .then((data) => {
         setMessage(JSON.stringify(data, null, 2));
-        setFormData({ image_url: "", name: "", password: "" });
+        setFormData({ image_url: ""});
         setUserInfo((prev) => ({
           ...prev,
           image_url: data.image_url,
@@ -68,7 +65,7 @@ function ProfilePage() {
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Welcome back, {userInfo && userInfo.name}!
+              Welcome back, {username}!
             </h2>
           </div>
           <div>
@@ -78,16 +75,8 @@ function ProfilePage() {
                   className="mx-auto h-240 w-240 rounded-full cursor-pointer object-cover"
                   src={userInfo.image_url}
                   alt="Profile picture"
-                  onClick={() => {
-                    const newImageUrl = prompt("Enter new image URL:");
-                    setFormData((prev) => ({
-                      ...prev,
-                      image_url: newImageUrl,
-                    }));
-                  }}
                 />
                 <p className="text-center mt-2 text-sm font-medium text-gray-600">
-                  Click to update profile picture
                 </p>
               </div>
             )}
@@ -120,7 +109,6 @@ className="group relative flex w-full justify-center rounded-md bg-indigo-600 py
       </form>
     </div>
   </div>
-  <pre>{message}</pre>
 </>
 );
 }

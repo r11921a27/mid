@@ -28,7 +28,7 @@ export async function signIn(request, res) {
 
 	request.session.userId = user.id;
 
-	return res.status(200).json(user.name);
+	return res.status(200).json({name: user.name, image_url: user.image_url});
 }
 
 export async function signOut(request, res) {

@@ -22,6 +22,9 @@ function UserPage() {
       .signInAccount({ name: formData.username, password: formData.password })
       .then((data) => {
         setMessage(JSON.stringify(data, null, 2));
+        document.cookie = 'isLoggedIn=true';
+        document.cookie = `username=${formData.username}`;
+        document.cookie = `userpassword=${formData.password}`;
         params.append('name', formData.username);
         params.append('password', formData.password);
         navigate(`/profile?${params.toString()}`);

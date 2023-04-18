@@ -187,7 +187,7 @@ export function RootIndex() {
         <h1 className="text-4xl block">Welcome</h1>
       </div>
       <div className="flex justify-center">
-        <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">
+        <a href="https://www.youtube.com/watch?v=EKodLoUSeW8&ab_channel=%E6%96%B0%E5%94%90%E4%BA%BA%E9%9B%BB%E8%A6%96%E5%8F%B0" target="_blank">
           <img src="/vite.svg" className="w-52 logo" />
         </a>
       </div>

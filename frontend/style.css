@@ -21,7 +21,7 @@ body {
 header {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     padding: 10px 80px;
     display: flex;
@@ -37,9 +37,7 @@ header {
 }
 
 .navigation a {
-    position: fixed;
-    top: 100;
-    right: 100;
+    position: relative;
     font-size: 1.1em;
     color: #fff;
     text-decoration: none;

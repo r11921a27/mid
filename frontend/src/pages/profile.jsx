@@ -55,7 +55,7 @@ function ProfilePage() {
       url: "https://api.imgur.com/3/image/",
       data: formData,
       headers: {
-      Authorization: "Client-ID 3e377c4338b3db6",
+      Authorization: "Client-ID <type your clientID>",
               Accept: "application/json",
       },
     })
